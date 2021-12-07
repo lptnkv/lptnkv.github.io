@@ -1,0 +1,32 @@
+/*Планшеты*/
+@media (max-width: 780px) {
+    .citate {
+        width: auto;
+        float: none;
+    }
+
+    .citate .photo{
+        width: 200px;
+    }
+
+    div.citate img {
+        height: 200px;
+        width: auto;
+    }
+
+    .image-container.full-size img, .image-container img{
+        max-width: 400px;
+        height: auto;
+    }    
+
+    .citate {
+        flex-direction: column;
+        width: auto;
+        float: none;
+    }
+
+    .img-container img{
+        max-width: 350px;
+        height: auto;
+    }
+}
