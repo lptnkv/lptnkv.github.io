@@ -76,6 +76,14 @@
         line-height: 35px;
     }
 
+    h2 {
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
     .image-container.full-size img, .image-container img{
         max-width: 320px;
         max-height: 300px;
@@ -86,16 +94,6 @@
     }
 
     body {
-     padding-top: 90px;   
-    }
-
-    .slideshow-container{
-        width: 300px;
-        margin: 0px;
-    }
-
-    .slideshow-container img {
-        max-width: 300px;
-        height: auto;
+        padding-top: 90px;
     }
 }
