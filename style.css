@@ -303,6 +303,14 @@ footer a, footer a:visited, footer a:hover, footer a:active {
     width: fit-content;
     position: relative;
     margin: auto;
+
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .slideshow-container img {
@@ -370,4 +378,3 @@ footer a, footer a:visited, footer a:hover, footer a:active {
 .active, .dot:hover {
     background-color: #717171;
 }
-
