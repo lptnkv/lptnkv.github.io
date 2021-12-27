@@ -81,6 +81,7 @@ nav {
 
 nav img {
     height: 45px;
+    width: auto;
 }
 
 nav a {
@@ -282,6 +283,7 @@ footer {
     padding-left: 20px;
     padding-top: 5px;
     margin-top: 50px;
+    width: 100%;
 }
 
 footer p, footer a {
