@@ -29,4 +29,28 @@
         max-width: 350px;
         height: auto;
     }
+
+    /*Header*/
+    nav{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: fit-content;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .logo-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-container{
+        margin: 5px 0px;
+    }
 }
