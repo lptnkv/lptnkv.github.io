@@ -70,7 +70,11 @@
 }
 
 /*Смартфоны*/
+<<<<<<< HEAD
 @media (max-width: 455px){
+=======
+@media (max-width: 450px){
+>>>>>>> master
     h1 {
         font-size: 30px;
         line-height: 35px;
@@ -94,6 +98,19 @@
     }
 
     body {
+     padding-top: 90px;   
+    }
+
+    .slideshow-container{
+        width: 300px;
+        margin: 0px;
+    }
+
+    .slideshow-container img {
+        max-width: 300px;
+        height: auto;
+=======
         padding-top: 90px;
+>>>>>>> master
     }
 }
