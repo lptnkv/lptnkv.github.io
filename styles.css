@@ -1,5 +1,5 @@
 body {
-    font-family: 'Lobster', cursive; /* Change to a romantic cursive font */
+    font-family: 'arial', cursive; /* Change to a romantic cursive font */
     background-color: #ffdde1;
     display: flex;
     align-items: center;
@@ -7,7 +7,7 @@ body {
     height: 100vh;
     margin: 0;
     background: url('images/image.jpg') repeat;
-    font-size: 35px;
+    font-size: 28px;
     color: rgb(255, 0, 174);
 }
 .hh{
@@ -67,9 +67,6 @@ body
     flex-direction: row;
 }
 
-#no-button{
-    
-}
 
 .hidden-message {
     display: none;
