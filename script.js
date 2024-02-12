@@ -1,34 +1,45 @@
-document.querySelector(".dropdown .dropbtn").addEventListener("click", () => {
-    window.location = "spaceships.html";
-});
+function showMessage(response) {
+  if (response === "No") {
+    const noButton = document.getElementById("no-button");
+    const container = document.querySelector(".container");
+    const maxWidth = window.innerWidth - noButton.offsetWidth;
+    const maxHeight = window.innerHeight - noButton.offsetHeight;
 
-// Вперед/назад
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
+    // Set button position to absolute
+    noButton.style.position = "absolute";
 
-// Текущее изображение
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
+    // Change image source to "gun.gif"
+    document.getElementsByClassName("image")[0].src = "images/gun.gif";
 
-function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    let dots = document.getElementsByClassName("dot");
-    if (n > slides.length) { slideIndex = 1 }
-    if (n < 1) { slideIndex = slides.length }
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-}
+    // Generate random coordinates within the visible container
+    const randomX = Math.max(0, Math.floor(Math.random() * maxWidth));
+    const randomY = Math.max(0, Math.floor(Math.random() * maxHeight));
 
-let slideIndex = 1;
-if (document.querySelector(".slider")){
-    showSlides(slideIndex);
+    // Apply new coordinates to the button
+    noButton.style.left = randomX + "px";
+    noButton.style.top = randomY + "px";
+
+    // Update text content and hide name message
+    document.getElementById("question").textContent =
+      "The no button is just for visuals";
+    document.getElementById("name").style.display = "none";
+
+    // Optional: You can also add a timeout to reset the position after a few seconds
+  }
+
+  if (response === "Yes") {
+    // Remove name message and no button
+    document.getElementById("name").remove();
+    document.getElementById("no-button").remove();
+
+    // Update text content, show message, and change image source to "dance.gif"
+    const yesMessage = document.getElementById("question");
+    yesMessage.textContent = "LESGOOO see you on the 14th babygirl😘😘";
+    yesMessage.style.display = "block";
+    yesMessage.style.fontStyle = "normal";
+    document.getElementsByClassName("image")[0].src = "images/dance.gif";
+
+    // Remove yes button
+    document.getElementById("yesButton").remove();
+  }
 }
