@@ -78,9 +78,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.btn:hover,
-.btn:active {
+.btn:hover, .btn:active {
     background-color: #faf9f6;
+    color: rgb(255, 33, 33);
 }
 
 .gif_container {
@@ -178,10 +178,6 @@ img {
         border: none;
         border-radius: 12px;
         transition: background-color 0.3s ease;
-    }
-
-    .btn:hover, .btn:active {
-        background-color: #faf9f6;
     }
 
     .gif_container {
