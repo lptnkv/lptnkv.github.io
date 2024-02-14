@@ -50,6 +50,7 @@ body {
     color: black;
     text-align: center;
     /*padding-top: 30px;*/
+    padding: 0px 10px;
     padding-bottom: 5px;
 }
 
@@ -77,7 +78,8 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:active {
     background-color: #faf9f6;
 }
 
@@ -94,7 +96,6 @@ img {
 .hidden {
     display: none;
 }
-
 
 .meme_image {
     border: 10px solid #ffb6c1;
@@ -152,6 +153,7 @@ img {
         color: black;
         text-align: center;
         /*padding-top: 30px;*/
+        padding: 0px 10px;
         padding-bottom: 5px;
     }
 
@@ -178,7 +180,7 @@ img {
         transition: background-color 0.3s ease;
     }
 
-    .btn:hover {
+    .btn:hover, .btn:active {
         background-color: #faf9f6;
     }
 
