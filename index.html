@@ -3,32 +3,78 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Доставка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="Mainprompt">
-            <img class="image" src="images/moskvarium.jpg"></img>
-            <h1 class="hh" id="name">Привет! Вам посылка с WB</h1>
-            <p class="pp" id="question">Хотите получить?</p>
-            <div class="buttons">
-                <button onclick="showMessage('No')" id="no-button">Нет</button>
-                <button onclick="showMessage('Yes')" id="yes-button">Да</button>
-            </div>
-            <div class="hidden-message" id="no-message">
-                <p>Неа, так не получится</p>
-            </div>
-            <div class="hidden-message" id="yes-message">
-                <p>Ура! Тогда свяжитесь с курьером для дальнейших инструкций!</p>
-                <a href="https://vk.com/lptnkv" target="_blank">VK</a>
-                <a href="https://t.me/lptnkv" target="_blank">Telegram</a>
-            </div>
+        <div class="text">
+            <h1 class="header_text">Ты будешь моей валентинкой?</h1>
+            <h1 class="header_text hidden">Ураа!</h1>
+        </div>
+        <div class="gif_container">
+            <img class="cute_image" src="https://media.giphy.com/media/LnKonfpQ44fNvuGLkA/giphy.gif"
+                alt="Котик кидает сердечко">
+            <img class="cute_image second_image hidden" src="./img/cute-cat.gif" alt="Котик радуется" />
+            <img class="meme_image hidden" src="./img/москвариум.jpg" alt="москвариум" />
+        </div>
+        <div class="buttons">
+            <button class="btn" id="yesButton" onclick="nextPage()">Да</button>
+            <button class="btn" id="noButton" onclick="resizeButtons()">Нет</button>
+            <button class="btn hidden" id="memeButton" onclick="showMeme()">Мем</button>
+            <script>
+                let yesButtonSize = 1.0;
+                let noButtonSize = 1.0;
+
+                function nextPage() {
+                    const buttons = document.querySelectorAll(".btn");
+                    buttons.forEach(btn => {
+                        btn.classList.toggle("hidden");
+                    });
+
+                    const headers = document.querySelectorAll("h1");
+                    headers.forEach(el => {
+                        el.classList.toggle("hidden");
+                    })
+
+                    const images = document.querySelectorAll(".cute_image");
+                    images.forEach(image => {
+                        image.classList.toggle("hidden");
+                    });
+                }
+
+                function resizeButtons() {
+                    yesButtonSize += 0.1;
+                    noButtonSize -= 0.05;
+
+                    const noButton = document.querySelector("#noButton");
+                    noButton.style.transform = `scale(${noButtonSize})`;       
+                    
+                    const yesButton = document.querySelector("#yesButton");
+                    console.log(yesButton);
+                    yesButton.style.transform = `scale(${yesButtonSize})`;           
+                }
+
+                function showMeme() {
+                    const meme_image = document.querySelector(".meme_image");
+                    meme_image.classList.toggle("hidden");
+                    
+                    const second_image = document.querySelector(".second_image");
+                    second_image.classList.toggle("hidden");
+
+                    const memeButton = document.querySelector("#memeButton");
+                    memeButton.classList.toggle("hidden");
+
+                    const text = document.querySelector(".text");
+                    text.classList.toggle("hidden");
+
+                }
+            </script>
         </div>
     </div>
-    <script src="script.js"></script>
+
 </body>
 
 </html>
