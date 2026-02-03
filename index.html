@@ -1,80 +1,379 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Сайтик</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Викторина Bleach</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .question-block {
+            display: none;
+        }
+        .question-block.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.4;
+        }
+        .answers {
+            margin-bottom: 20px;
+        }
+        .answers button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        .answers button:hover {
+            background: #f0f8ff;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        .answers button.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .answers button.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .score {
+            font-size: 1.2em;
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .final {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+        .final h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .final p {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .final a {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .final a:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #5a6fd8, #6a3f92);
+        }
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        .next-btn:hover {
+            transform: translateY(-2px);
+        }
+        .next-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .telegram-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .telegram-link:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="text">
-            <h1 class="header_text">Ты будешь моей валентинкой?</h1>
-            <h1 class="header_text hidden">Ураа!</h1>
-        </div>
-        <div class="gif_container">
-            <img class="cute_image" src="https://media.giphy.com/media/LnKonfpQ44fNvuGLkA/giphy.gif"
-                alt="Котик кидает сердечко">
-            <img class="cute_image second_image hidden" src="./img/cute-cat.gif" alt="Котик радуется" />
-            <img class="meme_image hidden" src="./img/москвариум.jpg" alt="москвариум" />
-        </div>
-        <div class="buttons">
-            <button class="btn" id="yesButton" onclick="nextPage()">Да</button>
-            <button class="btn" id="noButton" onclick="resizeButtons()">Нет</button>
-            <button class="btn hidden" id="memeButton" onclick="showMeme()">Мем</button>
-            <script>
-                let yesButtonSize = 1.0;
-                let noButtonSize = 1.0;
 
-                function nextPage() {
-                    const buttons = document.querySelectorAll(".btn");
-                    buttons.forEach(btn => {
-                        btn.classList.toggle("hidden");
-                    });
+<h1>Викторина «Bleach»</h1>
 
-                    const headers = document.querySelectorAll("h1");
-                    headers.forEach(el => {
-                        el.classList.toggle("hidden");
-                    })
-
-                    const images = document.querySelectorAll(".cute_image");
-                    images.forEach(image => {
-                        image.classList.toggle("hidden");
-                    });
-                }
-
-                function resizeButtons() {
-                    yesButtonSize += 0.1;
-                    noButtonSize -= 0.05;
-
-                    const noButton = document.querySelector("#noButton");
-                    noButton.style.transform = `scale(${noButtonSize})`;       
-                    
-                    const yesButton = document.querySelector("#yesButton");
-                    console.log(yesButton);
-                    yesButton.style.transform = `scale(${yesButtonSize})`;           
-                }
-
-                function showMeme() {
-                    const meme_image = document.querySelector(".meme_image");
-                    meme_image.classList.toggle("hidden");
-                    
-                    const second_image = document.querySelector(".second_image");
-                    second_image.classList.toggle("hidden");
-
-                    const memeButton = document.querySelector("#memeButton");
-                    memeButton.classList.toggle("hidden");
-
-                    const text = document.querySelector(".text");
-                    text.classList.toggle("hidden");
-
-                }
-            </script>
-        </div>
+<div class="quiz-container">
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
     </div>
 
-</body>
+    <!-- Вопрос 1 -->
+    <div class="question-block active" data-id="0">
+        <div class="question-number">Вопрос 1 из 4</div>
+        <div class="question-text">Кто является главным героем аниме "Блич"?</div>
+        <div class="answers">
+            <button data-correct="false">Рендзи Абарай</button>
+            <button data-correct="true">Ичиго Куросаки</button>
+            <button data-correct="false">Бьякуя Кучики</button>
+            <button data-correct="false">Гин Ичимару</button>
+        </div>
+        <button class="next-btn" onclick="nextQuestion()" disabled>Следующий вопрос</button>
+    </div>
 
+    <!-- Вопрос 2 -->
+    <div class="question-block" data-id="1">
+        <div class="question-number">Вопрос 2 из 4</div>
+        <div class="question-text">Как называется оружие, которое используют шинигами для борьбы с пустыми?</div>
+        <div class="answers">
+            <button data-correct="false">Кидо</button>
+            <button data-correct="true">Занпакто</button>
+            <button data-correct="false">Банкай</button>
+            <button data-correct="false">Шунпо</button>
+        </div>
+        <button class="next-btn" onclick="nextQuestion()" disabled>Следующий вопрос</button>
+    </div>
+
+    <!-- Вопрос 3 -->
+    <div class="question-block" data-id="2">
+        <div class="question-number">Вопрос 3 из 4</div>
+        <div class="question-text">Кто является капитаном 11-го отряда в Сообществе Душ? (самый забивной отряд)</div>
+        <div class="answers">
+            <button data-correct="false">Сосуке Айдзен</button>
+            <button data-correct="false">Бьякуя Кучики</button>
+            <button data-correct="false">Тосиро Хицугая</button>
+            <button data-correct="true">Кенпачи Зараки</button>
+        </div>
+        <button class="next-btn" onclick="nextQuestion()" disabled>Следующий вопрос</button>
+    </div>
+
+    <!-- Вопрос 4 -->
+    <div class="question-block" data-id="3">
+        <div class="question-number">Вопрос 4 из 4</div>
+        <div class="question-text">Что такое "Хогёку"?</div>
+        <div class="answers">
+            <button data-correct="false">Тип духовной энергии</button>
+            <button data-correct="true">Артефакт, способный стирать границу между шинигами и пустыми</button>
+            <button data-correct="false">Название мира пустых</button>
+            <button data-correct="false">Техника боя шинигами</button>
+        </div>
+        <button class="next-btn" onclick="nextQuestion()" disabled>Завершить викторину</button>
+    </div>
+
+    <div class="score" id="score">Счёт: 0 / 4</div>
+</div>
+
+<div class="final" id="final" style="display:none;">
+    <h2 id="result-title">Поздравляем! Вы завершили викторину!</h2>
+    <p>Ваш результат: <span id="final-score">0</span> из 4 правильных ответов</p>
+    <div id="reward-section"></div>
+    <a href="#" onclick="restartQuiz()">Пройти викторину ещё раз</a>
+</div>
+
+<script>
+    let currentQuestion = 0;
+    let score = 0;
+    const totalQuestions = 4;
+    const questionBlocks = document.querySelectorAll('.question-block');
+
+    // Добавляем обработчики к кнопкам ответов
+    questionBlocks.forEach((block, index) => {
+        const buttons = block.querySelectorAll('.answers button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Если уже отвечали на этот вопрос - ничего не делаем
+                if (block.classList.contains('answered')) return;
+
+                const isCorrect = this.dataset.correct === 'true';
+                const nextBtn = block.querySelector('.next-btn');
+                
+                if (isCorrect) {
+                    this.classList.add('correct');
+                    score++;
+                } else {
+                    this.classList.add('wrong');
+                    // Выделяем правильный вариант
+                    const rightBtn = block.querySelector('button[data-correct="true"]');
+                    if (rightBtn) rightBtn.classList.add('correct');
+                }
+
+                // Блокируем дальнейший выбор в этом вопросе
+                block.classList.add('answered');
+                updateScore();
+                
+                // Активируем кнопку "Следующий вопрос"
+                nextBtn.disabled = false;
+            });
+        });
+    });
+
+    function nextQuestion() {
+        if (currentQuestion < totalQuestions - 1) {
+            // Скрываем текущий вопрос
+            questionBlocks[currentQuestion].classList.remove('active');
+            
+            // Показываем следующий вопрос
+            currentQuestion++;
+            questionBlocks[currentQuestion].classList.add('active');
+            
+            // Обновляем прогресс-бар
+            updateProgress();
+        } else {
+            // Последний вопрос - показываем финальный экран
+            showFinal();
+        }
+    }
+
+    function updateProgress() {
+        const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+        document.getElementById('progress').style.width = progress + '%';
+    }
+
+    function updateScore() {
+        document.getElementById('score').textContent = `Счёт: ${score} / ${totalQuestions}`;
+    }
+
+    function showFinal() {
+        document.querySelector('.quiz-container').style.display = 'none';
+        document.getElementById('final').style.display = 'block';
+        document.getElementById('final-score').textContent = score;
+        
+        const rewardSection = document.getElementById('reward-section');
+        const resultTitle = document.getElementById('result-title');
+        
+        if (score === 4) {
+            resultTitle.textContent = 'Отлично! Вы настоящий фанат Bleach!';
+            rewardSection.innerHTML = `
+                <img
+                    class="fit-picture"
+                    src="img/kon.jpeg"
+                    alt="Тут должна быть картинка с Коном..." />
+                <p>Поздравляем! Вы ответили правильно на все вопросы!</p>
+                <p>Для получения приза напишите свой адрес в телеграм (все безопасно, это не мошенничество)</p>
+                <a href="https://t.me/lptnkv" class="telegram-link" target="_blank">
+                    Написать
+                </a>
+            `;
+        } else if (score >= 2) {
+            resultTitle.textContent = 'Хороший результат!';
+            rewardSection.innerHTML = `
+                <p>Вы показали неплохие знания, но есть к чему стремиться!</p>
+            `;
+        } else {
+            resultTitle.textContent = 'Попробуйте ещё раз!';
+            rewardSection.innerHTML = `
+                <p>Похоже, вам стоит пересмотреть аниме Bleach!</p>
+            `;
+        }
+    }
+
+    function restartQuiz() {
+        // Сброс всех переменных
+        currentQuestion = 0;
+        score = 0;
+        
+        // Скрываем финальный экран
+        document.getElementById('final').style.display = 'none';
+        
+        // Показываем первый вопрос
+        document.querySelector('.quiz-container').style.display = 'block';
+        questionBlocks.forEach((block, index) => {
+            block.classList.remove('active', 'answered');
+            if (index === 0) block.classList.add('active');
+            
+            // Сбрасываем стили кнопок
+            const buttons = block.querySelectorAll('.answers button');
+            buttons.forEach(btn => {
+                btn.classList.remove('correct', 'wrong');
+            });
+            
+            // Блокируем кнопку "Следующий вопрос"
+            const nextBtn = block.querySelector('.next-btn');
+            nextBtn.disabled = true;
+        });
+        
+        // Сбрасываем прогресс и счёт
+        document.getElementById('progress').style.width = '0%';
+        updateScore();
+    }
+
+    // Инициализация
+    updateProgress();
+    updateScore();
+</script>
+
+</body>
 </html>
